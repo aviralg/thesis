@@ -1,0 +1,1022 @@
+[
+  {
+    "ISBN": "9780990582939",
+    "URL": "https://craftinginterpreters.com/",
+    "author": [
+      {
+        "family": "Nystrom",
+        "given": "Robert"
+      }
+    ],
+    "id": "craftinterp",
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "publisher": "Genever Benning",
+    "title": "Crafting interpreters",
+    "type": "book"
+  },
+  {
+    "DOI": "10.1007/978-3-642-31057-7_6",
+    "author": [
+      {
+        "family": "Morandat",
+        "given": "Floréal"
+      },
+      {
+        "family": "Hill",
+        "given": "Brandon"
+      },
+      {
+        "family": "Osvald",
+        "given": "Leo"
+      },
+      {
+        "family": "Vitek",
+        "given": "Jan"
+      }
+    ],
+    "container-title": "European conference on object-oriented programming (ECOOP)",
+    "id": "ecoop12",
+    "issued": {
+      "date-parts": [
+        [
+          2012
+        ]
+      ]
+    },
+    "title": "Evaluating the design of the r language: Objects and functions for data analysis",
+    "title-short": "Evaluating the design of the r language",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1145/3428249",
+    "author": [
+      {
+        "family": "Turcotte",
+        "given": "Alexi"
+      },
+      {
+        "family": "Goel",
+        "given": "Aviral"
+      },
+      {
+        "family": "Křikava",
+        "given": "Filip"
+      },
+      {
+        "family": "Vitek",
+        "given": "Jan"
+      }
+    ],
+    "container-title": "Proceedings of the ACM on Programming Languages (PACMPL)",
+    "id": "oopsla20b",
+    "issue": "Conference on Object-Oriented Programming Systems, Languages and Applications (OOPSLA)",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "title": "Designing types for r, empirically",
+    "type": "article-journal",
+    "volume": "4"
+  },
+  {
+    "URL": "http://www.amstat.org/publications/jcgs/",
+    "author": [
+      {
+        "family": "Ihaka",
+        "given": "Ross"
+      },
+      {
+        "family": "Gentleman",
+        "given": "Robert"
+      }
+    ],
+    "container-title": "Journal of Computational and Graphical Statistics",
+    "id": "r96",
+    "issue": "3",
+    "issued": {
+      "date-parts": [
+        [
+          1996
+        ]
+      ]
+    },
+    "title": "R: A language for data analysis and graphics",
+    "title-short": "R",
+    "type": "article-journal",
+    "volume": "5"
+  },
+  {
+    "author": [
+      {
+        "family": "Becker",
+        "given": "Richard A."
+      },
+      {
+        "family": "Chambers",
+        "given": "John M."
+      },
+      {
+        "family": "Wilks",
+        "given": "Allan R."
+      }
+    ],
+    "id": "s88",
+    "issued": {
+      "date-parts": [
+        [
+          1988
+        ]
+      ]
+    },
+    "publisher": "Chapman & Hall",
+    "title": "The new S language",
+    "type": "book"
+  },
+  {
+    "DOI": "10.1145/3486602.3486768",
+    "author": [
+      {
+        "family": "Goel",
+        "given": "Aviral"
+      },
+      {
+        "family": "Vitek",
+        "given": "Jan"
+      }
+    ],
+    "container-title": "International symposium on dynamic languages (DLS)",
+    "id": "dls21",
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "title": "First-class environments in r",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1145/3485502",
+    "author": [
+      {
+        "family": "Goel",
+        "given": "Aviral"
+      },
+      {
+        "family": "Donat-Bouillud",
+        "given": "Pierre"
+      },
+      {
+        "family": "Kirsch",
+        "given": "Filip Křikava Christoph M."
+      },
+      {
+        "family": "Vitek",
+        "given": "Jan"
+      }
+    ],
+    "container-title": "Proceedings of the ACM on Programming Languages (PACMPL)",
+    "id": "oopsla21b",
+    "issue": "Conference on Object-Oriented Programming Systems, Languages and Applications (OOPSLA)",
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "title": "What we eval in the shadows: A large-scale study of eval in r programs",
+    "title-short": "What we eval in the shadows",
+    "type": "article-journal",
+    "volume": "5"
+  },
+  {
+    "DOI": "10.1038/s41586-020-2649-2",
+    "author": [
+      {
+        "family": "Harris",
+        "given": "Charles R."
+      },
+      {
+        "family": "Millman",
+        "given": "K. Jarrod"
+      },
+      {
+        "dropping-particle": "van der",
+        "family": "Walt",
+        "given": "Stéfan J."
+      },
+      {
+        "family": "Gommers",
+        "given": "Ralf"
+      },
+      {
+        "family": "Virtanen",
+        "given": "Pauli"
+      },
+      {
+        "family": "Cournapeau",
+        "given": "David"
+      },
+      {
+        "family": "Wieser",
+        "given": "Eric"
+      },
+      {
+        "family": "Taylor",
+        "given": "Julian"
+      },
+      {
+        "family": "Berg",
+        "given": "Sebastian"
+      },
+      {
+        "family": "Smith",
+        "given": "Nathaniel J."
+      },
+      {
+        "family": "Kern",
+        "given": "Robert"
+      },
+      {
+        "family": "Picus",
+        "given": "Matti"
+      },
+      {
+        "family": "Hoyer",
+        "given": "Stephan"
+      },
+      {
+        "dropping-particle": "van",
+        "family": "Kerkwijk",
+        "given": "Marten H."
+      },
+      {
+        "family": "Brett",
+        "given": "Matthew"
+      },
+      {
+        "family": "Haldane",
+        "given": "Allan"
+      },
+      {
+        "dropping-particle": "del",
+        "family": "Río",
+        "given": "Jaime Fernández"
+      },
+      {
+        "family": "Wiebe",
+        "given": "Mark"
+      },
+      {
+        "family": "Peterson",
+        "given": "Pearu"
+      },
+      {
+        "family": "Gérard-Marchant",
+        "given": "Pierre"
+      },
+      {
+        "family": "Sheppard",
+        "given": "Kevin"
+      },
+      {
+        "family": "Reddy",
+        "given": "Tyler"
+      },
+      {
+        "family": "Weckesser",
+        "given": "Warren"
+      },
+      {
+        "family": "Abbasi",
+        "given": "Hameer"
+      },
+      {
+        "family": "Gohlke",
+        "given": "Christoph"
+      },
+      {
+        "family": "Oliphant",
+        "given": "Travis E."
+      }
+    ],
+    "container-title": "Nature",
+    "id": "harris2020Array",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "title": "Array programming with NumPy",
+    "type": "article-journal",
+    "volume": "585"
+  },
+  {
+    "DOI": "10.7287/PEERJ.PREPRINTS.1459V1",
+    "author": [
+      {
+        "family": "Aggarwal",
+        "given": "Karan"
+      },
+      {
+        "family": "Salameh",
+        "given": "Mohammad"
+      },
+      {
+        "family": "Hindle",
+        "given": "A."
+      }
+    ],
+    "container-title": "PeerJ Prepr.",
+    "id": "Agg15",
+    "issued": {
+      "date-parts": [
+        [
+          2015
+        ]
+      ]
+    },
+    "title": "Using machine translation for converting Python 2 to Python 3 code",
+    "type": "article-journal",
+    "volume": "3"
+  },
+  {
+    "DOI": "10.1145/3368089.3409715",
+    "author": [
+      {
+        "family": "Pradel",
+        "given": "Michael"
+      },
+      {
+        "family": "Gousios",
+        "given": "Georgios"
+      },
+      {
+        "family": "Liu",
+        "given": "Jason"
+      },
+      {
+        "family": "Chandra",
+        "given": "Satish"
+      }
+    ],
+    "container-title": "Joint meeting on european software engineering conference and symposium on the foundations of software engineering (ESE/FSE)",
+    "id": "Pra20",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "title": "TypeWriter: Neural type prediction with search-based validation",
+    "title-short": "TypeWriter",
+    "type": "chapter"
+  },
+  {
+    "DOI": "10.1109/ICPC.2019.00052",
+    "author": [
+      {
+        "family": "Xu",
+        "given": "S."
+      },
+      {
+        "family": "Dong",
+        "given": "Z."
+      },
+      {
+        "family": "Meng",
+        "given": "N."
+      }
+    ],
+    "container-title": "International conference on program comprehension (ICPC)",
+    "id": "Xu19",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "title": "Meditor: Inference and application of API migration edits",
+    "title-short": "Meditor",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1145/3387905.3388608",
+    "author": [
+      {
+        "family": "Fazzini",
+        "given": "Mattia"
+      },
+      {
+        "family": "Xin",
+        "given": "Qi"
+      },
+      {
+        "family": "Orso",
+        "given": "Alessandro"
+      }
+    ],
+    "container-title": "International conference on mobile software engineering and systems (MobileSoft)",
+    "id": "Orso20",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "title": "APIMigrator: An API-usage migration tool for Android apps",
+    "title-short": "APIMigrator",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1145/3324884.3416618",
+    "author": [
+      {
+        "family": "Collie",
+        "given": "B."
+      },
+      {
+        "family": "Ginsbach",
+        "given": "P."
+      },
+      {
+        "family": "Woodruff",
+        "given": "J."
+      },
+      {
+        "family": "Rajan",
+        "given": "A."
+      },
+      {
+        "family": "O’Boyle",
+        "given": "M. F. P."
+      }
+    ],
+    "container-title": "Conference on automated software engineering (ASE)",
+    "id": "OB20",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "title": "M3: Semantic API migrations",
+    "title-short": "M3",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1145/1176617.1176755",
+    "author": [
+      {
+        "family": "Tobin-Hochstadt",
+        "given": "Sam"
+      },
+      {
+        "family": "Felleisen",
+        "given": "Matthias"
+      }
+    ],
+    "container-title": "Companion to the symposium on object-oriented programming systems, languages, and applications",
+    "id": "matthias06",
+    "issued": {
+      "date-parts": [
+        [
+          2006
+        ]
+      ]
+    },
+    "title": "Interlanguage migration: From scripts to programs",
+    "title-short": "Interlanguage migration",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1145/3360579",
+    "author": [
+      {
+        "family": "Goel",
+        "given": "Aviral"
+      },
+      {
+        "family": "Vitek",
+        "given": "Jan"
+      }
+    ],
+    "container-title": "PACMPL",
+    "id": "promisestudy",
+    "issue": "Conference on Object-Oriented Programming Systems, Languages and Applications (OOPSLA)",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "title": "On the design, implementation, and use of laziness in r",
+    "type": "article-journal",
+    "volume": "3"
+  },
+  {
+    "DOI": "10.1145/3485478",
+    "author": [
+      {
+        "family": "Goel",
+        "given": "Aviral"
+      },
+      {
+        "family": "Ječmen",
+        "given": "Jan"
+      },
+      {
+        "family": "Krynski",
+        "given": "Sebastián"
+      },
+      {
+        "family": "Flückiger",
+        "given": "Olivier"
+      },
+      {
+        "family": "Vitek",
+        "given": "Jan"
+      }
+    ],
+    "container-title": "PACMPL",
+    "id": "promisebreaker",
+    "issue": "Conference on Object-Oriented Programming Systems, Languages and Applications (OOPSLA)",
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "title": "Promises are made to be broken: Migrating r to strict semantics",
+    "title-short": "Promises are made to be broken",
+    "type": "article-journal",
+    "volume": "5"
+  },
+  {
+    "DOI": "10.1006/inco.1994.1093",
+    "author": [
+      {
+        "family": "Wright",
+        "given": "Andrew K."
+      },
+      {
+        "family": "Felleisen",
+        "given": "Matthias"
+      }
+    ],
+    "container-title": "Information and Computation",
+    "id": "wright92",
+    "issued": {
+      "date-parts": [
+        [
+          1992
+        ]
+      ]
+    },
+    "title": "A syntactic approach to type soundness",
+    "type": "article-journal",
+    "volume": "115"
+  },
+  {
+    "author": [
+      {
+        "family": "Ligges",
+        "given": "Uwe"
+      }
+    ],
+    "container-title": "UseR! conference",
+    "id": "ligges2017",
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "title": "20 years of CRAN (video on Channel9)",
+    "type": "paper-conference"
+  },
+  {
+    "URL": "http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html",
+    "author": [
+      {
+        "family": "Huber",
+        "given": "W."
+      },
+      {
+        "family": "Carey",
+        "given": "V. J."
+      },
+      {
+        "family": "Gentleman",
+        "given": "R."
+      },
+      {
+        "family": "Anders",
+        "given": "S."
+      },
+      {
+        "family": "Carlson",
+        "given": "M."
+      },
+      {
+        "family": "Carvalho",
+        "given": "B. S."
+      },
+      {
+        "family": "Bravo",
+        "given": "H. C."
+      },
+      {
+        "family": "Davis",
+        "given": "S."
+      },
+      {
+        "family": "Gatto",
+        "given": "L."
+      },
+      {
+        "family": "Girke",
+        "given": "T."
+      },
+      {
+        "family": "Gottardo",
+        "given": "R."
+      },
+      {
+        "family": "Hahne",
+        "given": "F."
+      },
+      {
+        "family": "Hansen",
+        "given": "K. D."
+      },
+      {
+        "family": "Irizarry",
+        "given": "R. A."
+      },
+      {
+        "family": "Lawrence",
+        "given": "M."
+      },
+      {
+        "family": "Love",
+        "given": "M. I."
+      },
+      {
+        "family": "MacDonald",
+        "given": "J."
+      },
+      {
+        "family": "Obenchain",
+        "given": "V."
+      },
+      {
+        "family": "Ole’s",
+        "given": "A. K."
+      },
+      {
+        "family": "Pag‘es",
+        "given": "H."
+      },
+      {
+        "family": "Reyes",
+        "given": "A."
+      },
+      {
+        "family": "Shannon",
+        "given": "P."
+      },
+      {
+        "family": "Smyth",
+        "given": "G. K."
+      },
+      {
+        "family": "Tenenbaum",
+        "given": "D."
+      },
+      {
+        "family": "Waldron",
+        "given": "L."
+      },
+      {
+        "family": "Morgan",
+        "given": "M."
+      }
+    ],
+    "container-title": "Nature Methods",
+    "id": "bioc",
+    "issue": "2",
+    "issued": {
+      "date-parts": [
+        [
+          2015
+        ]
+      ]
+    },
+    "page": "115-121",
+    "title": "Orchestrating high-throughput genomic analysis with Bioconductor",
+    "type": "article-journal",
+    "volume": "12"
+  },
+  {
+    "DOI": "10.1017/S0956796800000617",
+    "author": [
+      {
+        "family": "Augustsson",
+        "given": "Lennart"
+      }
+    ],
+    "container-title": "Journal of Functional Programming",
+    "id": "augustsson93",
+    "issue": "1",
+    "issued": {
+      "date-parts": [
+        [
+          1993
+        ]
+      ]
+    },
+    "title": "The interactive lazy ML system",
+    "type": "article-journal",
+    "volume": "3"
+  },
+  {
+    "DOI": "10.1145/366193.366201",
+    "author": [
+      {
+        "family": "Backus",
+        "given": "J. W."
+      },
+      {
+        "family": "Bauer",
+        "given": "F. L."
+      },
+      {
+        "family": "J.Green"
+      },
+      {
+        "family": "Katz",
+        "given": "C."
+      },
+      {
+        "family": "McCarthy",
+        "given": "J."
+      },
+      {
+        "family": "Naur",
+        "given": "P."
+      },
+      {
+        "family": "Perlis",
+        "given": "A. J."
+      },
+      {
+        "family": "Rutishauser",
+        "given": "H."
+      },
+      {
+        "family": "Samelson",
+        "given": "K."
+      },
+      {
+        "family": "Vauquois",
+        "given": "B."
+      },
+      {
+        "family": "Wegstein",
+        "given": "J. H."
+      },
+      {
+        "dropping-particle": "van",
+        "family": "Wijngaarden",
+        "given": "A."
+      },
+      {
+        "family": "Woodger",
+        "given": "M."
+      }
+    ],
+    "container-title": "Communications of the ACM",
+    "id": "backus",
+    "issue": "1",
+    "issued": {
+      "date-parts": [
+        [
+          1963
+        ]
+      ]
+    },
+    "title": "Revised report on the algorithm language ALGOL 60",
+    "type": "article-journal",
+    "volume": "6"
+  },
+  {
+    "DOI": "10.1145/800087.802804",
+    "author": [
+      {
+        "family": "Pitman",
+        "given": "Kent M."
+      }
+    ],
+    "container-title": "LISP conference",
+    "id": "pitman80",
+    "issued": {
+      "date-parts": [
+        [
+          1980
+        ]
+      ]
+    },
+    "title": "Special forms in LISP",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1002/spe.4380090105",
+    "author": [
+      {
+        "family": "Turner",
+        "given": "David A."
+      }
+    ],
+    "container-title": "Software: Practice and Experience",
+    "id": "turner79",
+    "issue": "1",
+    "issued": {
+      "date-parts": [
+        [
+          1979
+        ]
+      ]
+    },
+    "title": "A new implementation technique for applicative languages",
+    "type": "article-journal",
+    "volume": "9"
+  },
+  {
+    "DOI": "10.1007/3-540-15975-4\\_26",
+    "author": [
+      {
+        "family": "Turner",
+        "given": "David A."
+      }
+    ],
+    "container-title": "Functional programming languages and computer architecture (FPCA)",
+    "id": "turner85",
+    "issued": {
+      "date-parts": [
+        [
+          1985
+        ]
+      ]
+    },
+    "title": "Miranda: A non-strict functional language with polymorphic types",
+    "title-short": "Miranda",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1145/1238844.1238856",
+    "author": [
+      {
+        "family": "Hudak",
+        "given": "Paul"
+      },
+      {
+        "family": "Hughes",
+        "given": "John"
+      },
+      {
+        "family": "Peyton Jones",
+        "given": "Simon L."
+      },
+      {
+        "family": "Wadler",
+        "given": "Philip"
+      }
+    ],
+    "container-title": "History of programming languages conference (HOPL-III)",
+    "id": "haskell",
+    "issued": {
+      "date-parts": [
+        [
+          2007
+        ]
+      ]
+    },
+    "title": "A history of haskell: Being lazy with class",
+    "title-short": "A history of haskell",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1093/comjnl/32.2.98",
+    "author": [
+      {
+        "family": "Hughes",
+        "given": "John"
+      }
+    ],
+    "container-title": "The Computer Journal",
+    "id": "hughes",
+    "issue": "2",
+    "issued": {
+      "date-parts": [
+        [
+          1989
+        ]
+      ]
+    },
+    "title": "Why functional programming matters",
+    "type": "article-journal",
+    "volume": "32"
+  },
+  {
+    "DOI": "10.1023/A:100772063",
+    "author": [
+      {
+        "family": "Wand",
+        "given": "Mitchell"
+      }
+    ],
+    "container-title": "Lisp and Symbolic Computation",
+    "id": "mitch",
+    "issue": "3",
+    "issued": {
+      "date-parts": [
+        [
+          1998
+        ]
+      ]
+    },
+    "title": "The theory of fexprs is trivial",
+    "type": "article-journal",
+    "volume": "10"
+  },
+  {
+    "DOI": "10.1145/3276945.3276946",
+    "author": [
+      {
+        "family": "Bodin",
+        "given": "Martin"
+      },
+      {
+        "family": "Diaz",
+        "given": "Tomás"
+      },
+      {
+        "family": "Tanter",
+        "given": "Éric"
+      }
+    ],
+    "container-title": "International symposium on dynamic languages (DLS)",
+    "id": "trouduq",
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "title": "A trustworthy mechanized formalization of R",
+    "type": "paper-conference"
+  },
+  {
+    "ISBN": "0387245448",
+    "author": [
+      {
+        "family": "Wilkinson",
+        "given": "Leland"
+      }
+    ],
+    "id": "tgog",
+    "issued": {
+      "date-parts": [
+        [
+          2005
+        ]
+      ]
+    },
+    "publisher": "Springer-Verlag",
+    "publisher-place": "Berlin, Heidelberg",
+    "title": "The grammar of graphics (statistics and computing)",
+    "type": "book"
+  }
+]

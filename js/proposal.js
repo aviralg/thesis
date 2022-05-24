@@ -210,7 +210,7 @@ $("#ref-list").replaceWith(function() {
     return $(newHtml);
 });
 
-$.getJSON("bibliography.json", function(bibliography) {
+$.getJSON("js/bibliography.json", function(bibliography) {
 
     var citations = bibliography.map(function(citation) {
 
