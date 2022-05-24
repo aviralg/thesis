@@ -2,6 +2,9 @@
 
 // remove abstract from table of contents
 $("#toc > ul:first-child > li:first-child").remove();
+$("#toc > ul").append(
+    $("<li><a href='#references'>References</a></li>")
+)
 
 // move abstract before table of contents
 var abstract = $("#abstract");
