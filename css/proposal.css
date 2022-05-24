@@ -80,7 +80,7 @@ a {
 }
 
 .section {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
     padding-bottom: 0.25rem;
     border-bottom: solid black 0.15rem;
@@ -99,3 +99,11 @@ pre {
     margin-bottom: 0rem;
 }
 
+.footnotes hr {
+    border: none;
+    height: 4px;
+    /* Set the hr color */
+    color: black; /* old IE */
+    background-color: black; /* Modern Browsers */
+    opacity: 100%;
+}

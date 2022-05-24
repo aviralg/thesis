@@ -167,6 +167,20 @@ $("#ref-list").children().replaceWith(function() {
 
 */
 
+$("pre code").first().text(
+"#' This function wraps base::if\
+\n#' @strict cond\
+\nmy_if <- function(cond, yes, no) {\
+\n    if(cond) yes else no\
+\n}"
+);
+
+$("pre code").last().text(
+"my_if <- function(cond: strict, yes, no) {\
+\n    if(cond) yes else no\
+\n}"
+);
+
 document.addEventListener('DOMContentLoaded', (event) => {
     var elts = $("pre code");
     elts.attr("class", "language-r");
@@ -181,7 +195,7 @@ var TColorBoxHeadings = ["Thesis Question", "Thesis Proposal", "Thesis Contribut
 $(".tcolorbox").each(function(index) {
     var html = $(this).html();
     var node = `<div class="card mb-3">
-        <div class="card-header">
+        <div class="card-header text-bg-dark">
         ${TColorBoxHeadings[index]}
         </div>
         <div class="card-body">
@@ -210,22 +224,226 @@ $("#ref-list").replaceWith(function() {
     return $(newHtml);
 });
 
+
+function citationAuthors(citation) {
+    var authors = citation.author.map(name => name.given + ' ' + name.family);
+    authors = authors.join(', ');
+    return authors;
+}
+
+function citationId(citation) {
+    return citation.id;
+}
+
+EXCLUDE_SET = {
+    "in": true,
+    "we": true,
+    "with": true,
+    "the": true,
+    "of": true,
+    "and": true,
+    "for": true,
+    "to": true,
+    "on": true,
+    "is": true
+};
+
+function toUpperCase(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+function citationTitle(citation) {
+    var title = citation.title;
+    var words = title.split(" ");
+    words = words.map(
+        function(word) {
+            if (word in EXCLUDE_SET) {
+                return word;
+            }
+            else {
+                return toUpperCase(word);
+            }
+        }
+    );
+
+    return words.join(" ");
+}
+
+function citationDate(citation) {
+    return citation.issued["date-parts"][0][0];
+}
+
+
+function citationPublisher(citation) {
+
+    var publisher = citation.publisher;
+
+    if(publisher === undefined) {
+        return "";
+    }
+    else {
+        return publisher;
+    }
+}
+
+function citationConference(citation) {
+
+    var conference = citation["container-title"];
+
+    if(conference === undefined) {
+        return "";
+    }
+    else {
+        return conference;
+    }
+}
+
+function citationVolume(citation) {
+
+    var volume = citation["volume"];
+
+    if(volume === undefined) {
+        return "";
+    }
+    else {
+        return volume;
+    }
+}
+
+function citationIssue(citation) {
+
+    var issue = citation["issue"];
+
+    if(issue === undefined) {
+        return "";
+    }
+    else {
+        return issue;
+    }
+}
+
+
+function citationIsbn(citation) {
+    var isbn = citation.ISBN;
+
+    if(isbn === undefined) {
+        return "";
+    }
+    else {
+        return isbn;
+    }
+}
+
+
+function citationDoi(citation) {
+    var doi = citation.DOI;
+
+    if(doi === undefined) {
+        return "";
+    }
+    else {
+        return doi;
+    }
+}
+
+function bookCitation(citation) {
+    var id = citationId(citation);
+    var title = citationTitle(citation);
+
+    var isbn = citationIsbn(citation);
+    var date = citationDate(citation);
+    var authors = citationAuthors(citation);
+    var publisher = citationPublisher(citation);
+
+    var html = `<li id="ref-${id}" class="list-group-item d-flex justify-content-between align-items-start">
+                     <div class="ms-2 me-auto">
+                         <div class="fw-bold">${title}</div>
+                         <div class="fst-italic">${publisher}, ${date}</div>
+                         <div class="fw-lighter">${authors}</div>
+                     </div>
+                     <span class="badge font-monospace fw-normal bg-danger bg-opacity-10" style="color: #930000;">ISBN: ${isbn}</span>
+                </li>`;
+
+    return $(html);
+}
+
+function conferenceCitation(citation) {
+    var id = citationId(citation);
+    var title = citationTitle(citation);
+
+    var doi = citationDoi(citation);
+    var date = citationDate(citation);
+    var authors = citationAuthors(citation);
+    var conference = citationConference(citation);
+
+    var html = `<li id="ref-${id}" class="list-group-item d-flex justify-content-between align-items-start">
+                     <div class="ms-2 me-auto">
+                         <div class="fw-bold">${title}</div>
+                         <div class="fst-italic">${conference}, ${date}</div>
+                         <div class="fw-lighter">${authors}</div>
+                     </div>
+                     <span class="badge font-monospace fw-normal bg-danger bg-opacity-10" style="color: #930000;">DOI: ${doi}</span>
+                </li>`;
+
+    return $(html);
+}
+
+function journalCitation(citation) {
+    var id = citationId(citation);
+    var title = citationTitle(citation);
+
+    var doi = citationDoi(citation);
+    var date = citationDate(citation);
+    var authors = citationAuthors(citation);
+    var conference = citationConference(citation);
+
+    var volume = citationVolume(citation);
+    if(volume !== "") volume = ' ' + volume;
+
+    var issue = citationIssue(citation);
+    if(issue !== "") issue = '.' + issue;
+
+    var html = `<li id="ref-${id}" class="list-group-item d-flex justify-content-between align-items-start">
+                     <div class="ms-2 me-auto">
+                         <div class="fw-bold">${title}</div>
+                         <div class="fst-italic">${conference}${volume}${issue}, ${date}</div>
+                         <div class="fw-lighter">${authors}</div>
+                     </div>
+                     <span class="badge font-monospace fw-normal bg-danger bg-opacity-10">
+                         <a href="https://www.doi.org/${doi}">DOI: ${doi}</a>
+                     </span>
+                </li>`;
+
+    return $(html);
+}
+
 $.getJSON("js/bibliography.json", function(bibliography) {
 
     var citations = bibliography.map(function(citation) {
 
-        var id = citation.id;
-        var doi = citation.doi;
-        var year = citation.issued["date-parts"][0][0];
-        var title = citation.title;
-        var conf = citation["container-title"] || ""
-        conf = addWithSeparator(conf, citation["volume"] || "", " ");
-        conf = addWithSeparator(conf, citation["issue"] || "", ", ");
+        var type = citation.type;
 
-        var authors = citation.author.map(name => name.given + ' ' + name.family);
-        authors = authors.join(', ');
+        if(type === "book") {
+            return bookCitation(citation);
+        }
+        else if (type === "paper-conference" || type === "chapter") {
+            return conferenceCitation(citation);
+        }
+        else if (type === "article-journal") {
+            return journalCitation(citation);
+        }
+        else {
+            var id = citation.id;
+            var doi = citation.doi;
+            var year = citationDate(citation);
+            var title = citationTitle(citation);
+            var conf = citation["container-title"] || ""
+            conf = addWithSeparator(conf, citation["volume"] || "", " ");
+            conf = addWithSeparator(conf, citation["issue"] || "", ", ");
 
-        var citation = `<li id="ref-${id}" class="list-group-item d-flex justify-content-between align-items-start">
+            var authors = citationAuthors(citation);
+
+            var citation = `<li id="ref-${id}" class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">${title}</div>
                                 <div class="fw-bold">${conf}</div>
@@ -234,7 +452,8 @@ $.getJSON("js/bibliography.json", function(bibliography) {
                             <span class="badge bg-primary rounded-pill">${year}</span>
                        </li>`;
 
-        return $(citation);
+            return $(citation);
+        }
     });
 
     console.log(citations);
@@ -243,3 +462,19 @@ $.getJSON("js/bibliography.json", function(bibliography) {
     $("#ref-list").append(citations);
 });
 
+
+var inparadesc = $(".inparadesc");
+var inparaprev = inparadesc.prev();
+var inparanext = inparadesc.next();
+
+var points = inparadesc.children("p").map(function() { return $(this).text(); }).toArray().join(' ');
+
+inparaprev.text(
+    inparaprev.text() + ' ' + points + "."
+);
+
+inparadesc.remove();
+
+inparanext.text(
+    inparanext.text().slice(1)
+);

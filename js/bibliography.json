@@ -88,6 +88,7 @@
     "volume": "4"
   },
   {
+    "DOI": "10.2307/1390807",
     "URL": "http://www.amstat.org/publications/jcgs/",
     "author": [
       {
@@ -115,6 +116,7 @@
     "volume": "5"
   },
   {
+    "ISBN": "9781351074988",
     "author": [
       {
         "family": "Becker",
@@ -597,25 +599,7 @@
     "volume": "115"
   },
   {
-    "author": [
-      {
-        "family": "Ligges",
-        "given": "Uwe"
-      }
-    ],
-    "container-title": "UseR! conference",
-    "id": "ligges2017",
-    "issued": {
-      "date-parts": [
-        [
-          2017
-        ]
-      ]
-    },
-    "title": "20 years of CRAN (video on Channel9)",
-    "type": "paper-conference"
-  },
-  {
+    "DOI": "10.1038/nmeth.3252",
     "URL": "http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html",
     "author": [
       {
@@ -949,7 +933,7 @@
     "volume": "32"
   },
   {
-    "DOI": "10.1023/A:100772063",
+    "DOI": "10.1023/A:1007720632734",
     "author": [
       {
         "family": "Wand",
@@ -1015,7 +999,6 @@
       ]
     },
     "publisher": "Springer-Verlag",
-    "publisher-place": "Berlin, Heidelberg",
     "title": "The grammar of graphics (statistics and computing)",
     "type": "book"
   }
