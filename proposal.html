@@ -1,0 +1,482 @@
+<!-- Copied from https://github.com/jgm/pandoc-templates/blob/master/default.html5 -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="pandoc" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+        <meta name="author" content="Aviral Goel" />
+        <meta name="dcterms.date" content="May 2022" />
+        <meta name="keywords" content="R, R Language, Delayed or Lazy Evaluation, Software Migration" />
+        <meta name="description" content="Non-Intrusive Migration of R Ecosystem from Lazy to Strict Semantics" />
+        <title>Data-Driven Ecosystem Migration: Non-Intrusive Migration of R Ecosystem from Lazy to Strict Semantics</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&family=Tangerine:wght@700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap">
+
+        <link rel="stylesheet" href="css/bootstrap-5.1.3-beta.bundle.min.css">
+        <link rel="stylesheet" href="css/highlightjs-11.5.1-github.min.css">
+        <link rel="stylesheet" href="css/proposal.css">
+
+                        <!--[if lt IE 9]>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        
+        <header class="container">
+            <div class="row text-center justify-content-center mb-5 pt-5">
+                <div class="col-lg-9 align-self-center">
+                    <h1 id="title" class="display-5 fw-bold no-anchor">Data-Driven Ecosystem Migration</h1>
+                </div>
+                <div class="col-lg-6 align-self-center">
+                    <h2 id="subtitle" class="fs-2 fw-bold no-anchor">Non-Intrusive Migration of R Ecosystem from Lazy to Strict Semantics</h1>
+                    </h2>
+                </div>
+            </div>
+            <div class="row text-center my-5">
+                <div class="col-lg-6 mx-auto align-self-center">
+                    <p class="mb-2">A Thesis Proposal by</p>
+                    <a id="signature" class="display-2 mb-4" href="http://aviral.io/">Aviral Goel</a>
+                </div>
+            </div>
+            <div class="row text-center my-5">
+                <div class="col-lg-4 mx-auto align-self-center">
+                    <a href="https://www.northeastern.edu/">Northeastern University</a><br/>
+                    <a href="https://www.khoury.northeastern.edu/">Khoury College of Computer Sciences</a><br/>
+                    Boston, Massachusetts, USA
+                </div>
+            </div>
+            <div class="row text-center pb-5">
+                <div class="col-lg-4 mx-auto align-self-center">
+                    May, 2021
+                </div>
+            </div>
+        </header>
+
+        <!-- <div class="container">
+             <div class="row justify-content-center">
+             <hr class="col-lg-9 text-dark opacity-100" size="6">
+             </div>
+             </div> -->
+
+        <!--  -->
+
+        <main class="container my-md-4 layout">
+            <div class="row justify-content-center">
+                <div class="col col-lg-9" id="abstract-holder">
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col col-lg-9">
+                                        <h1 id="contents">Contents</h1>
+                    <nav id="toc", class="fs-4">
+                        <ul>
+                        <li><a href="#abstract">Abstract</a></li>
+                        <li><a href="#introduction">Introduction</a>
+                        <ul>
+                        <li><a href="#r-and-laziness">R and Laziness</a></li>
+                        <li><a href="#related-work">Related Work</a></li>
+                        </ul></li>
+                        <li><a href="#thesis-question">Thesis Question</a></li>
+                        <li><a href="#contributions">Contributions</a>
+                        <ul>
+                        <li><a href="#design-and-implementation-of-laziness">Design and Implementation of Laziness</a>
+                        <ul>
+                        <li><a href="#related-work-1">Related Work</a></li>
+                        </ul></li>
+                        <li><a href="#tool-for-analyzing-the-use-of-laziness">Tool for Analyzing The Use of Laziness</a>
+                        <ul>
+                        <li><a href="#related-work-2">Related Work</a></li>
+                        </ul></li>
+                        <li><a href="#analysis-of-the-use-of-laziness">Analysis of The Use of Laziness</a>
+                        <ul>
+                        <li><a href="#laziness-usage-patterns">Laziness Usage Patterns</a></li>
+                        <li><a href="#related-work-3">Related Work</a></li>
+                        </ul></li>
+                        <li><a href="#siginf">Tool for Inferring Strictness Signatures</a>
+                        <ul>
+                        <li><a href="#related-work-4">Related Work</a></li>
+                        </ul></li>
+                        </ul></li>
+                        <li><a href="#proposed-work">Proposed Work</a>
+                        <ul>
+                        <li><a href="#automating-migration">Automating Migration</a></li>
+                        <li><a href="#migrating-popular-r-packages">Migrating Popular R Packages</a></li>
+                        </ul></li>
+                        <li><a href="#conclusions">Conclusions</a>
+                        <ul>
+                        <li><a href="#schedule">Schedule</a></li>
+                        </ul></li>
+                        </ul>
+                    </nav>
+                                    </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col ps-lg-4 col-lg-9" id="main-content">
+                    <div>
+                        <div class="titlepage">
+                        <div class="center">
+                        <p><br />
+                        <span>Non-Intrusive Migration of R Ecosystem<br />
+                        from Lazy to Strict Semantics</span></p>
+                        <p>A thesis proposal by<br />
+                        <br />
+                        </p>
+                        <p><a href="https://www.northeastern.edu/">Northeastern University</a><br />
+                        <a href="https://www.khoury.northeastern.edu/">Khoury College of Computer Sciences</a><br />
+                        Boston, Massachusetts, USA<br />
+                        May 2022<br />
+                        </p>
+                        </div>
+                        </div>
+                        <h1 class="unnumbered" id="abstract">Abstract</h1>
+                        <div class="flushright">
+                        <p><span> <em>Once you factor in documentation, debuggers, editor support,<br />
+                        syntax highlighting, and all of the other trappings,<br />
+                        doing it yourself becomes a tall order.</em></span><br />
+                        — Robert Nystrom, “Crafting Interpreters” <span class="citation" data-cites="craftinterp">(Nystrom 2021)</span></p>
+                        </div>
+                        <p>Evolving a contemporary mainstream language ecosystem can be a formidable undertaking owing to huge package repositories and millions of active users. For example, as of this writing, the R ecosystem has 19,022 packages in <a href="https://cran.r-project.org/">CRAN</a> and over 2 Million users worldwide, as estimated by the <a href="https://www.r-consortium.org/about">R Consortium</a>. At this scale, even a modest language update can impact millions of active users by breaking a significant portion of otherwise functional code, discouraging adoption. If the updates do not offer clear incentives to the users, partial adoption ensues, leading to fragmentation of the ecosystem from incompatible library “islands”. Nevertheless, language designers routinely roll out updates to programming languages to fix bugs and incorporate new features without systematic migration strategies in place, leading to undesirable but easily avertible situations, such as the Python 2 to 3 migration fiasco.</p>
+                        <p>To evolve a language with a substantial package ecosystem and a large user base requires a strategy that can scale while minimizing the impact on its users. In this thesis, I propose the following three-part data-driven strategy for <em>large-scale migration</em> of the R language ecosystem from lazy to strict-by-default and lazy-on-demand semantics with <em>minimal user-visible changes</em> and <em>good precision</em>:</p>
+                        <ol>
+                        <li><p>Assess the feasibility of migrating to strict-by-default semantics on the R ecosystem by studying the use of laziness in legacy code.</p></li>
+                        <li><p>Migrate legacy code at scale by developing tooling to automate transition to strict-by-default semantics with minimal impact on existing code.</p></li>
+                        <li><p>Encourage adoption by identifying incentives to motivate R package developers to migrate their code.</p></li>
+                        </ol>
+                        <h1 id="introduction">Introduction</h1>
+                        <p>Software migration is a routine activity in modern-day software development. Migration is the process of performing syntactic changes to a codebase to conform to a new version of the language, runtime, or dependency while offering the same functionality. The new versions typically fix bugs, address design issues, and add new features. Migration can be a trivial task if the new version is backward-compatible or a formidable undertaking if a feature is redesigned.</p>
+                        <p>From the perspective of migration, a language ecosystem can be viewed as a tiered structure. At the base are the language implementation and associated core packages maintained and developed by a small set of core developers who intimately understand the design and implementation of the language. These form the base for the next tier consisting of packages from official packages repositories written by expert language users. Standing upon this is the last tier: notebooks, scripts, blog posts, and books written by end-users with varying expertise. Language changes happen at the base tier by developers on a relatively small codebase with the deepest understanding of language internals. The expert package authors, assisted by their tests suites, absorb these changes by updating their packages. Finally, they are propagated to the end-users, least equipped with the knowledge of the language’s internals. Thus, the migration process proceeds like a ripple: from a few thousand lines of code to millions of lines of code, from maximum to limited user expertise, from a controlled to an open-ended codebase, from implementation and packages with tests to end-user scripts, usually without tests. This migration ripple originates from a controlled, predictable setting and culminates with a potentially unforeseen impact on the end-users.</p>
+                        <p>Large package ecosystems of contemporary mainstream languages are a double-edged sword. On the one hand, they are majorly responsible for languages’ popularity and adoption; on the other hand, they deter experimentation and evolution. If fixing design mistakes and retrofitting new features in a language breaks millions of lines of otherwise functional code, they will be met with much resistance from the users. An even worse predicament is when partial adoption of changes splits the ecosystem into islands of incompatible package ecosystems.</p>
+                        <p>I intend to migrate the R ecosystem from lazy to strict-by-default and lazy-on-demand in this work. I will focus exclusively on the migration of packages found in <a href="https://cran.r-project.org/">CRAN</a>, the official package repository of R. Changes to the implementation and core packages are made by the language developers; hence I exclude them from the migration process. I also exclude end-user scripts and notebooks since they are often use-and-throw, do not have tests, and are scattered all over the internet, unlike the packages in official repositories. If required, they can be bundled with tests to migrate them like packages. Migrating blog posts, books, and social media posts is beyond the scope of this work.</p>
+                        <h2 id="r-and-laziness">R and Laziness</h2>
+                        <p>This section provides a brief primer on the R language and the motivation for switching R’s semantics from lazy to strict-by-default.</p>
+                        <p>R is a vectorized, dynamic, lazy, functional, and object-oriented programming language with an unusual combination of features <span class="citation" data-cites="ecoop12">(Morandat et al. 2012)</span>, designed to be easy to learn by non-programmers and enable rapid development of new statistical methods. It was created in 1993 by <span class="citation" data-cites="r96">Ihaka and Gentleman (1996)</span> as a successor to an earlier language for statistics named S <span class="citation" data-cites="s88">(Becker, Chambers, and Wilks 1988)</span>. Today, R is widely used in scientific computing domains such as data science.</p>
+                        <p>In R, most data types are vectorized; it does not differentiate scalars from vectors. Environments, used as scopes, are first-class mutable maps with a reference to their lexical environment. Code can always access its local and lexical environments, but it is also possible to reflectively extract the environment of any function currently on the call stack <span class="citation" data-cites="dls21">(Goel and Vitek 2021)</span>. Expressions are first-class objects that can be evaluated in any programmatically accessible environment using <code>eval</code> <span class="citation" data-cites="oopsla21b">(Goel, Donat-Bouillud, et al. 2021)</span>.</p>
+                        <p>R has lexically-scoped higher-order functions. All functions, including the ones in loaded packages, can be redefined. This makes R flexible but challenging to analyze. In R, every linguistic construct is desugared to a function call, even control flow statements, assignments, and bracketing.</p>
+                        <p>R uses the call-by-need evaluation strategy; function argument evaluation in R is delayed by bundling it in a thunk called a <em>promise</em>. Logically, a promise combines an expression’s code, its environment, and its value. To access the value of a promise, one must <em>force</em> it. Forcing a promise triggers evaluation, and the computed value is captured for future reference.</p>
+                        <p>While R strives to be functional, it allows assignment to variables in any programmatically chosen scope. Apart from this, there are all sorts of external effects and no monads.</p>
+                        <h5 id="why-bother-being-lazy">Why Bother being Lazy?</h5>
+                        <p>Lazy evaluation in R is the building block of its meta-programming facilities. Argument text can be accessed reflectively from a promise as a first-class expression object, modified, and evaluated in any environment. This is used for extending the language and for creating embedded domain-specific languages.</p>
+                        <h5 id="the-case-for-strictness">The Case for Strictness</h5>
+                        <p>Laziness is error-prone, inconsistent, and costly, at least when combined with side-effects in a language without type annotations. When a function with multiple evaluation orders is provided side-effecting arguments, the order of effects is hard to predict, leading to subtle bugs. R’s laziness is inconsistent as there are points where evaluation is arbitrarily forced, e.g., the right-hand side of assignments and function returns. Laziness is costly as each argument has to be boxed in a promise object that must be allocated and freed, and compiler optimizations are hindered due to the side-effects from evaluating arguments.</p>
+                        <h2 id="related-work">Related Work</h2>
+                        <p>Changing a language with a large codebase is challenging. I briefly discuss a few languages that have dealt with this problem in recent times.</p>
+                        <h5 id="python"><a href="https://www.python.org/">Python</a></h5>
+                        <p>One of the most unsuccessful migrations is the transition from Python 2 to Python 3. Python 3.0 was released in 2008 with a plan to end Python 2 support by 2015. However, the transition was so slow that support for Python 2 was extended till 2020<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Python 3 introduced numerous backward-incompatible changes<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> to Python 2 but did little to incentivize the developers to migrate. The official migration program shipped with the Python distribution could not automate the migration process beyond simple syntactic transformations. Migration to Python 3 proceeded glacially, with most major open-source Python packages pledging to drop support for Python 2.7<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> after a decade. Many factors facilitated this slow migration: first, “visible” incentives introduced by subsequent Python releases, such as support for asynchronous programming, second, migration of popular libraries such as <a href="https://numpy.org/">NumPy</a> <span class="citation" data-cites="harris2020Array">(Harris et al. 2020)</span> and <a href="https://djangoproject.com.">django</a> which served as dependencies for a significant chunk of Python’s ecosystem, and lastly, improvement in migration tooling support over time.</p>
+                        <h5 id="scala"><a href="https://www.scala-lang.org/">Scala</a></h5>
+                        <p>Scala 3, released in May 2021, introduces new features and restricts and drops a few Scala 2.13 constructs while retaining a significant chunk of the old syntax. To facilitate interoperability, both Scala 2.13 and Scala 3 share the same ABI, and Scala 3 source can be consumed as a dependency by a Scala 2.13 compiler after compilation. The Scala 3 compiler with appropriate flags can migrate parts of Scala 2.13 to the new syntax. The <span>scalafix</span> refactoring tool provides rewrite rules to fix some incompatibilities in Scala 2.13 source to facilitate migration. Libraries can be migrated incrementally: first migrate the dependencies, then the compiler options, and finally, the deprecated library syntax using <span>scalafix</span>. Formatting tools and IDE plugins are in the process of adding Scala 3 support. The migration tooling does not yet support automatic migration of <code>implicits</code> and macros.</p>
+                        <h5 id="javascript"><a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">JavaScript</a></h5>
+                        <p>Because of its humble beginnings as a language for embedding short code snippets in web pages, JavaScript had many design issues related to its dynamic behavior and reluctance to throw runtime errors, hindering the development of large dynamic webpages. The <em>strict</em> mode, an opt-in dialect of JavaScript, sought to address some of these design oddities. It was designed to be subtractive: it didn’t add new features, only eliminated problematic ones. For the most part many common coding errors were turned into runtime errors, such as assignment to an undeclared variable. This facilitated adoption by ensuring that the code exhibited the same runtime behavior when run under a browser that did not yet support <em>strict</em> mode. Furthermore, instead of introducing new syntax, <code>"use strict";</code>, a literal string constant followed by a semicolon, was chosen to opt into <em>strict</em> mode. Evaluating this constant has no side effects, so browsers that did not implement <em>strict</em> mode would ignore its presence. This enabled users to incrementally migrate their scripts to the new dialect without worrying about browser support.</p>
+                        <h5 id="typescript"><a href="https://www.typescriptlang.org/">TypeScript</a></h5>
+                        <p>TypeScript is a typed superset of JavaScript. It provides a structural type system for JavaScript for static type-checking. TypeScript only extends the JavaScript syntax to add support for type annotations; hence, JavaScript code remains valid TypeScript code. Types can also be provided through external declaration files. After typechecking, the TypeScript compiler translates the code to plain JavaScript by erasing the types. TypeScript neither changes the program behavior based on the inferred types nor does it add any additional runtime libraries to the program. This makes it trivial to migrate existing JavaScript code to TypeScript. Types can be added incrementally. Tight editor integration helps in identifying bugs based on type information. This has made TypeScript extremely popular among JavaScript developers.</p>
+                        <h5 id="hack"><a href="https://hacklang.org/">Hack</a></h5>
+                        <p>Hack is a dialect of PHP, developed and used at Facebook. The migration of PHP to Hack at Facebook has enjoyed the benefits of a closed feedback loop. As all Hack users share an employer and a source code repository, it is possible to develop language features targeted at relevant usage patterns and ensure rapid migration. Unfortunately, most mainstream language ecosystems don’t enjoy such closed feedback loops. They are used by multiple corporations and open-source developers which makes it difficult to ensure Hack like rapid migration.</p>
+                        <p>The problem of migration has also been addressed by the research community. <span class="citation" data-cites="Agg15">Aggarwal, Salameh, and Hindle (2015)</span> attempted to use statistical machine learning to convert Python 2 to 3. <span class="citation" data-cites="Pra20">Pradel et al. (2020)</span> described a tool for discovering types in Python programs as a combination of probabilistic type prediction and search-based refinement. Migration was also studied in the context of Java libraries <span class="citation" data-cites="Xu19">(Xu, Dong, and Meng 2019)</span>, Android apps <span class="citation" data-cites="Orso20">(Fazzini, Xin, and Orso 2020)</span> and C++ applications <span class="citation" data-cites="OB20">(Collie et al. 2020)</span>. One last relevant thread of work is the migratory typing of <span class="citation" data-cites="matthias06">Tobin-Hochstadt and Felleisen (2006)</span> where a gradual type system is added to a variant of the Scheme programming language to enable gradual migration from untyped to typed code.</p>
+                        <h1 id="thesis-question">Thesis Question</h1>
+                        <p>This thesis addresses the following question:</p>
+                        <div class="tcolorbox">
+                        <p>How to <em>effectively</em> migrate R from a lazy to strict-by-default and lazy-on-demand language with <em>minimal impact</em> on its legacy code?</p>
+                        </div>
+                        <p>The answer to this question lies in the solution to these subproblems:</p>
+                        <dl>
+                        <dt>Q1 How will the ecosystem be impacted?</dt>
+                        <dd><p><br />
+                        Impact analysis helps assess the suitability of strict semantics for R and identify the affected parts of its ecosystem. An empirical analysis of the R package ecosystem can help determine the impact of switching to strict semantics.</p>
+                        </dd>
+                        <dt>Q2 How to migrate the ecosystem at scale?</dt>
+                        <dd><p><br />
+                        Automation is crucial for migrating R’s large package repository since manual migration is time-consuming and error-prone and will inhibit adoption. An automation tool should perform a minimal rewrite of the affected code identified in the previous step.</p>
+                        </dd>
+                        <dt>Q3 How to encourage adoption?</dt>
+                        <dd><p><br />
+                        Clear incentives should be identified from the impact analysis of step one for the users to consider migration.The automation tool built in the second step should be used to migrate the popular packages to accelerate adoption.</p>
+                        </dd>
+                        </dl>
+                        <p>These solutions lead to the following thesis proposal:</p>
+                        <div class="tcolorbox">
+                        <p>I propose the following three-part data-driven strategy for an effective <em>large-scale migration</em> of the R language ecosystem from lazy to strict-by-default and lazy-on-demand semantics with <em>minimal user-visible changes</em> and <em>good precision</em>:</p>
+                        <ol>
+                        <li><p><strong>Assess the impact of migration</strong> to strict semantics by studying the use of laziness in legacy code.</p></li>
+                        <li><p><strong>Migrate legacy code at scale</strong> automatically using tooling with minimal changes to existing code.</p></li>
+                        <li><p><strong>Encourage adoption</strong> by identifying incentives for migration to new semantics and migrating popular packages.</p></li>
+                        </ol>
+                        </div>
+                        <h1 id="contributions">Contributions</h1>
+                        <p>I have published the following papers towards the implementation of my three-step migration strategy:</p>
+                        <ol>
+                        <li><p><a href="https://doi.org/10.1145/3360579">On the Design, Implementation, and Use of Laziness in R</a> <span class="citation" data-cites="promisestudy">(Goel and Vitek 2019)</span><br />
+                        This paper reviews the design and implementation of laziness in R and presents a data-driven study of how generations of programmers have put laziness to use in their code. Analysis of 16,707 R packages reveals little supporting evidence to assert that programmers use laziness to avoid unnecessary computation or to operate over infinite data structures. by a small number of packages.</p></li>
+                        <li><p><a href="https://doi.org/10.1145/3485478">Promises Are Made to Be Broken</a> <span class="citation" data-cites="promisebreaker">(Goel, Ječmen, et al. 2021)</span><br />
+                        This paper explores how to evolve the semantics of R towards strictness-by-default and laziness-on-demand by providing tooling for developers to migrate libraries without introducing errors. It reports on a dynamic analysis that infers strictness signatures for functions to capture intentional and accidental laziness with over 99% accuracy.</p></li>
+                        </ol>
+                        <p>I claim the following intellectual contributions from these papers:</p>
+                        <div class="tcolorbox">
+                        <ol>
+                        <li><p>A description of the design and implementation of laziness in R and a small-step operational semantics for a subset of the language.</p></li>
+                        <li><p>An open-source, carefully optimized, dynamic analysis pipeline, consisting of an instrumented R interpreter and data analysis scripts for analyzing the use of laziness in R programs.</p></li>
+                        <li><p>An empirical evaluation of 232,290 scripts exercising code from 16,707 R packages on the use of laziness by programmers, the strictness of R functions and their possible evaluation orders, and the life cycle of promises.</p></li>
+                        <li><p>An open-source, dynamic analysis pipeline, that infers strictness signatures for R functions to migrate them from lazy to strict-by-default and lazy-on-demand semantics and validates the robustness of these signatures against client code.</p></li>
+                        </ol>
+                        </div>
+                        <p>The following sections discuss these intellectual contributions vis-à-vis the three-step migration strategy.</p>
+                        <h2 id="design-and-implementation-of-laziness">Design and Implementation of Laziness</h2>
+                        <p>In <span class="citation" data-cites="promisestudy">Goel and Vitek (2019)</span>, I discuss the implementation of laziness through promises in GNU R, the official R VM, and a small-step operational semantics of R’s call-by-need semantics. This contribution relates to the first step of my migration strategy – assessment of laziness in R.</p>
+                        <h5 id="implementation">Implementation</h5>
+                        <p>A promise has four slots: <code>exp</code>, <code>env</code>, <code>val</code>, and <code>forced</code>. The <code>exp</code> slot contains a reference to the code of the promise, the <code>env</code> refers to the environment in which the promise was originally created, the <code>val</code> slot holds the result of evaluating the <code>exp</code>, and the <code>forced</code> flag is used to avoid recursion. When a promise is accessed, the <code>val</code> slot is inspected first. If it is not empty, that value is returned; else, <code>forced</code> is checked. If the <code>forced</code> flag is set, an exception is thrown to avoid recursive promise evaluation. If it is not set, it is set, and <code>exp</code> is evaluated in <code>env</code>. Once the evaluation finishes, the <code>val</code> slot is bound to the result, the <code>env</code> slot is cleared to allow the environment to be reclaimed, and the <code>forced</code> flag is unset.</p>
+                        <h5 id="semantics">Semantics</h5>
+                        <p>The small-step operational semantics is described in the style of <span class="citation" data-cites="wright92">(Wright and Felleisen 1992)</span> for a core R language with promises. It provides an easy-to-follow account of R’s call-by-need semantics. The entire semantics fits on a page, yet it is precise, unlike the prose description. I build upon the semantics of Core R <span class="citation" data-cites="ecoop12">(Morandat et al. 2012)</span>, but omit vectors and out-of-scope assignments. Instead, I add delayed assignment, default values for arguments, <code>substitute</code>, and <code>eval</code>. To support these features, I add strings as a base type and the ability to capture the current environment. The surface syntax includes terms for strings, variables, string concatenation, assignment, function declaration, function invocation (one and zero-argument functions), environment capture, substitution, eval, and delayed assignment. The semantics has not been validated by testing.</p>
+                        <h5 id="insights">Insights</h5>
+                        <p>The key insight from this contribution is that the design of laziness in R is inconsistent. There are numerous randomly-enforced strictness points:</p>
+                        <div class="inparadesc">
+                        <p>the right-hand side of assignments is strict,</p>
+                        <p>sequencing operator <code>a;b</code> evaluates both expressions <code>a</code> and <code>b</code>,</p>
+                        <p>the data structures are all strict,</p>
+                        <p>function returns are strict,</p>
+                        <p>many core functions in R are strict,</p>
+                        <p>there are no lazy data structures, and</p>
+                        <p>object-oriented dispatch evaluates arguments strictly to obtain their class</p>
+                        </div>
+                        <p>. On the one hand, this makes R a rather strict lazy language; most end-users perceive R as a strict language, utterly unaware of its lazy semantics. On the other hand, developers force argument strictness at function boundaries to regain predictability manually because of inconsistently enforced strictness. This suggests that laziness, at least the way it is implemented, is a wrong design choice for R.</p>
+                        <h3 id="related-work-1">Related Work</h3>
+                        <p>I compare my semantics to the work of <span class="citation" data-cites="trouduq">Bodin, Diaz, and Tanter (2018)</span>. My semantics makes no claims of being correct (there is no specification of R) or of being faithful to the language. The semantics is useful in as much it provides a readable account of delayed evaluation in R. Bodin’s work is more ambitious, it aims to provide an executable semantics. The benefits of executable semantics is that they can be tested against an implementation, in this case the GNU R virtual machine. The semantics consists of 28,026 lines of Coq and 1,689 lines of ML. Validation is done through testing and visual comparison between the GNU R’s C code and Coq code. Unfortunately, in the current state Bodin’s specification is still far from complete. Out of 20,976 tests, only 6,370 pass. Inspection of the specification reveals that key functions for laziness such as <code>force</code>, <code>forceAndCall</code>, and <code>delayedAssign</code> are not implemented. Only a handful of the provided tests deal with lazy evaluation (they check that promises are evaluated only when forced). Furthermore, package loading and interaction with C code is not supported, thus packages from my corpus cannot be tested. I tried to match my semantics to theirs but the DLS’18 paper does not describe their treatment of laziness. Due to the size of the Coq codebase and lack of documentation, it was unclear how to align the two artifacts.</p>
+                        <h2 id="tool-for-analyzing-the-use-of-laziness">Tool for Analyzing The Use of Laziness</h2>
+                        <p>In <span class="citation" data-cites="promisestudy">Goel and Vitek (2019)</span>, I release an open-source, carefully optimized, dynamic analysis pipeline consisting of an instrumented R interpreter and data analysis scripts to analyze the use of laziness in R packages. The artifact has been validated as <em>Functional</em> and <em>Reusable</em> and is available from:</p>
+                        <p><a href="https://doi.org/10.5281/zenodo.3369573">https://doi.org/10.5281/zenodo.3369573</a></p>
+                        <p>The analysis pipeline starts with scripts to download, extract and install open-source R packages. Next, an instrumented R virtual machine generates events from program runs. This is followed by an analyzer that processes the execution traces to generate tabular data files in a custom binary format. Other scripts post-process the data, compute statistics, and generate graphs. The entire pipeline is managed by a Makefile that invokes an R script to extract runnable code snippets from installed packages and runs the other steps in parallel. Parallelization is achieved using GNU Parallel.</p>
+                        <h5 id="instrumented-r-vm">Instrumented R VM</h5>
+                        <p>The instrumented R Virtual Machine is based on GNU-R version 3.5.0. Its goal is to produce program execution traces with all the events required to answer the research questions related to laziness. On the face of it, this is not a difficult task. And in the end, I only need to add 1,886 lines of C code to expose an event data structure with fields to describe a variety of execution events that capture the internal interpreter state. The challenge was identifying where to insert those 1,886 lines in an interpreter whose code is 542,809 LOC written over twenty-five years by many developers and outside contributors. The system has grown in complexity with an eclectic mix of ad-hoc features to support growing user requirements. For instance, the code to manage environments and variable bindings in <code>main/envir.c</code> is over 2,864 LOC with 131 functions with many identical code fragments for managing these data structures duplicated in various files. I succeeded by a lengthy trial and error process.</p>
+                        <h5 id="tracer">Tracer</h5>
+                        <p>The tracer is a small R package (73 LOC) that calls into a larger C++ library (6,080 LOC). It is loaded in the instrumented R virtual machine and, during program execution, it maintains objects that model various aspects of the program such as functions, calls, promises, variables, environments, stacks, and stack frames. As events are generated, the tracer updates its model of the state. Some design decisions allowed the tracer to scale. Firstly, copying model objects is avoided as much as possible. They are created by a singleton factory that caches them in a global table. This optimization pays off as model objects are large and costly to copy. However, keeping these objects alive too long will increase the footprint and hinder any attempt at running multiple tracers on the same machine in parallel. To reduce the tracing footprint, the R garbage collector was modified so that model objects can be deallocated as soon as the R object they represent is freed. One slightly surprising design choice is to link all model objects together. This pays off when an event triggers a cascade of changes to model objects. However, this comes at a price, of course. As lists of model objects are circular, it is necessary to perform reference counting to reclaim them. One last implementation trick is using a shadow stack that mirrors the stack maintained by the R virtual machine. The shadow stack is used to look up data after a <code>longjump</code>. The tracer generates large amounts of data. My first prototype used <a href="https://www.sqlite.org/index.html">SQLite</a> to store the generated data. However, expensive join operations and synchronization issues between the database schema and the tracer forced me to abandon this approach and implement a custom format. As the event stream has substantial redundancy, I applied streaming compression on the fly. Compression yielded an average 10x saving in space and 12x improvement in loading time.</p>
+                        <h5 id="post-processing">Post-processing</h5>
+                        <p>This part of the pipeline analyzes the raw data. It is 4K lines of R code. This pipeline uses parallelism and map-reduce style analysis to handle a large volume of data in a reasonable time. The pipeline steps are:</p>
+                        <ol>
+                        <li><p><strong>Prescan</strong>: Scans the raw data directory to produce an index for the next step.</p></li>
+                        <li><p><strong>Reduce</strong>: Partially summarizes the raw data in parallel.</p></li>
+                        <li><p><strong>Scan</strong>: Creates a list of all the files successfully reduced.</p></li>
+                        <li><p><strong>Combine</strong>: Combines information from all the programs into a single data table per analysis question.</p></li>
+                        <li><p><strong>Summarize</strong>: Computes summaries of the merged data.</p></li>
+                        <li><p><strong>Report</strong>: Generate graphs and tables from an RMarkdown notebook.</p></li>
+                        </ol>
+                        <h3 id="related-work-2">Related Work</h3>
+                        <p>Like this dynamic analyzer, <span class="citation" data-cites="ecoop12">Morandat et al. (2012)</span> implemented a tool called TraceR for profiling R programs. The architecture of TraceR was similar to that of the pipeline presented here, but it did not target large-scale data collection and has gone unmaintained for several years.</p>
+                        <h2 id="analysis-of-the-use-of-laziness">Analysis of The Use of Laziness</h2>
+                        <p>In <span class="citation" data-cites="promisebreaker">Goel, Ječmen, et al. (2021)</span>, I present an empirical evaluation of 16,707 R packages on the use of laziness by programmers, the strictness of functions and their possible evaluation orders, and the life cycle of promises. This contribution relates to the first step of my migration strategy – assessment of laziness in R. I chose dynamic analysis for this assessment since alternative approaches suffer from serious drawbacks. One alternative is to modify the R VM to perform strict evaluation and observe how much code will break. However, built-in functions (e. g., conditionals and exception handling mechanism) require unevaluated terms, so all scripts will break. Another alternative is to annotate the arguments in the entire code base manually, but that is cumbersome, error-prone, and unscalable. The final alternative, static analysis, would fail to yield meaningful insights because of R’s dynamic nature. It is important to note that the result of dynamic analysis depends on code coverage; the data reflects only the code paths that were executed. Because of this, the analysis may underestimate the use of laziness.</p>
+                        <h5 id="corpus">Corpus</h5>
+                        <p>The corpus used in this evaluation was assembled from the two main code repositories, namely <a href="https://cran.r-project.org/">CRAN</a> <span class="citation" data-cites="ligges2017">(Ligges 2017)</span> and <a href="https://www.bioconductor.org/">Bioconductor</a> <span class="citation" data-cites="bioc">(Huber et al. 2015)</span>. Both are curated repositories; to be admitted, packages must contain use-cases and tests and the data needed to run them. The corpus consists of 14,762 CRAN packages and 3,087 Bioconductor packages. From this, the analysis pipeline extracted 232K scripts and exercised 25.6 M lines of R and 10.4 M lines of C. The total size of the database after analysis is 5.2 TB. This corpus only includes code written by package authors, not end-user code. Anecdotal evidence suggests that end-users typically write straight-line calls to package functions for data analysis and visualization. They do not define functions; hence they are less likely to leverage laziness.</p>
+                        <h3 id="laziness-usage-patterns">Laziness Usage Patterns</h3>
+                        <p>This section presents the results of the empirical study of laziness in the R language.</p>
+                        <h4 id="life-cycle-of-promises">Life Cycle of Promises</h4>
+                        <p>Promises dominate the memory profile of R programs. In this corpus, they were the most frequently allocated object – 270.9 B promises accounting for 38% of the allocated objects were observed. They are short-lived; 80% were evaluated in the called function, and over 99% did not survive a single GC cycle. Only 17% of promises contained expressions, i. e.code that required evaluation. The vast majority of promises, 48%, contain a single symbol, e. g.<code>x</code>, to be looked up in the promise’s defining environment, and the remaining promises contain constants. Most argument promises, 87.3% to be precise, were used only once; the remaining were forced and read multiple times. 79.7% of promises were evaluated in the immediate callee, and the rest were evaluated indirectly through symbols contained inside other promises. Overall most promises lead a rather mundane life.</p>
+                        <h4 id="strictness">Strictness</h4>
+                        <p>Of the 2.1 M distinct parameters to 388.3 K functions in the corpus, 87.6% were evaluated across all the calls to their corresponding functions, 6.0% parameters were evaluated in some calls and not others, and 6.4% parameters were never used. Out of the total 388.3 K functions, 83.7% were strict – these functions evaluate all their arguments in a single pre-ordained order across all calls. Furthermore, the majority of packages, 51%, had only strict functions; only 17% of packages had less than 75% strict functions. For the most part, R code appears to have been written without reliance on, and in many cases, even knowledge of, delayed argument evaluation.</p>
+                        <h4 id="traditional-benefits-of-laziness">Traditional Benefits of Laziness</h4>
+                        <p>The first traditional benefit of laziness is that programmers need not worry about the cost of unused arguments since they will not be evaluated under the call-by-need evaluation strategy. I compared the execution time of promises passed to parameters that were always evaluated against those that were only evaluated across some calls. While there was a slight difference in their execution profiles, the data did not confirm that programmers are taking advantage of laziness.</p>
+                        <p>The second traditional use of laziness is that it makes it possible to compute over infinite data structures. While R does not provide such data structures, programmers can create them explicitly by leveraging first-class environments and call-by-need evaluation strategy. From a qualitative analysis of potential candidates, I found only a single instance of the explicit creation and use of a lazy data structure.</p>
+                        <h4 id="meta-programming">Meta-programming</h4>
+                        <p>Meta-programming in R is accomplished through calls to substitute, which lets programmers extract an abstract syntax tree from the body of a promise, modify it, and evaluate with <code>eval</code>. I observed 1.7 B calls (2% of all calls) to <code>substitute</code>. Overall, 0.7% of promises were meta-programmed in 2 K packages. Meta-programming is used for extending the language. The core R library implements some operators using meta-programming. Many programmers use the combination of meta-programming, first-class environments, and <code>eval</code> to design domain-specific languages for plotting and data analysis.</p>
+                        <h4 id="laziness-and-side-effects">Laziness and Side-Effects</h4>
+                        <p>Laziness and side-effects lead to unpredictable code. Function arguments can be evaluated in different orders across different paths, effectively randomizing the order of side-effects. This problem is further exacerbated by the fact that most R users do not realize that it is a lazy language, leading to hard-to-understand bugs. R programmers work around this problem by explicitly evaluating the arguments on function entry in a particular order using the <code>force</code> function. Even the built-in higher-order functions in R use a similar function, <code>forceAndCall</code>. The <code>force</code> function was widely used to enforce strictness; it was called 101.8 M times and was used in 60% of the inspected packages.<br />
+                        <br />
+                        While the call-by-need evaluation strategy is the default in R, this analysis suggests that it is used far less than one would expect. To deal with side-effects and manage programmers’ expectation, many functions are stricter than they need to be. There is little evidence of lazy data structures or that users leverage lazy evaluation to avoid unnecessary computation. The only major use of laziness is for meta-programming. These results make a compelling case for eliminating laziness from R.</p>
+                        <h3 id="related-work-3">Related Work</h3>
+                        <p>Lazy functional programming languages have a rich history. The earliest lazy programming language was Algol 60 <span class="citation" data-cites="backus">(Backus et al. 1963)</span> which had a call-by-name evaluation strategy. This was followed by a series of purely functional lazy languages <span class="citation" data-cites="turner79 augustsson93 turner85">(Turner 1979, 1985; Augustsson 1993)</span>. The motivations for the pursuit of laziness were modularity, referential transparency and the ability to work with infinite data structures <span class="citation" data-cites="hughes">(Hughes 1989)</span>. These languages inspired the design of Haskell <span class="citation" data-cites="haskell">(Hudak et al. 2007)</span>.</p>
+                        <p>The meta-programming support of R is reminiscent of fexprs <span class="citation" data-cites="mitch">(Wand 1998)</span> in Lisp. Fexprs are first class functions with unevaluated arguments. In R, functions always have access to their unevaluated and evaluated arguments. Pitman <span class="citation" data-cites="pitman80">(Pitman 1980)</span> argued in favor of macros over fexprs. Macros are transparent, their definition can be understood by expanding them to primitive language forms before the evaluation phase. fexprs on the other hand perform code manipulation during evaluation. This makes it harder for compilers to statically optimize fexprs. Furthermore, expression manipulation such as substitution of an expression for all evaluable occurrences of some other expression can be performed correctly by macros because they expand before evaluation to primitive forms.</p>
+                        <p>Building upon the implicit argument quoting of promises is a data structure called <code>quosure</code>, that bundles an expression and its evaluation environment for explicit manipulation at the the language level. A <code>quosure</code> is thus an explicit promise object exposed to the user, with APIs to access the underlying expression and environment. They are a central component of a collection of R packages for data manipulation, <a href="https://www.tidyverse.org/">tidyverse</a>, that have a common design language and underlying data structures. <a href="https://dplyr.tidyverse.org/">dplyr</a>, a package of <span>tidyverse</span>, implements a DSL for performing SQL like data transformations on tabular data and <a href="https://ggplot2.tidyverse.org/">ggplot2</a> implements a declarative language for graphing data, inspired by The Grammar of Graphics <span class="citation" data-cites="tgog">(Wilkinson 2005)</span>. These packages <code>quote</code>, <code>unquote</code> and <code>quasiquote</code> user supplied expressions and evaluate them in appropriate environments. To facilitate this, these packages also provide an evaluation function, <code>eval_tidy</code> that extends the base <code>eval</code> to deal with quosures. This suggests that reifying promises can be useful.</p>
+                        <h2 id="siginf">Tool for Inferring Strictness Signatures</h2>
+                        <p>In <span class="citation" data-cites="promisebreaker">Goel, Ječmen, et al. (2021)</span>, I developed tools to migrate the R ecosystem to strict semantics. This contribution addresses the second step of the migration strategy. The tools have been validated as <em>Functional</em> and <em>Reusable</em> and are available from:</p>
+                        <p><a href="https://doi.org/10.5281/zenodo.5394235">https://doi.org/10.5281/zenodo.5394235</a></p>
+                        <p>The first tool, <span>LazR</span>, uses dynamic analysis to observe argument usage and synthesizes strictness signatures for functions. The strictness signature of a function is a sequence of argument positions of that function that can be evaluated strictly. The second tool, <span>StrictR</span>, runs R code with strict semantics dictated by the signatures. It loads signatures from external files and applies them to R functions by inserting calls to the <code>force</code> function when packages are loaded. <span>LazR</span> considers almost all features of R that interact with laziness; arguments that were not evaluated at least once, varargs, missing arguments, arguments used for meta-programming, and arguments performing a non-local side-effect or a reflective operation on the call-stack are all marked lazy. <span>LazR</span> does not handle IO and state changes in the native code, which makes the signatures unsound. Since it relies on dynamic analysis, which depends on code coverage, <span>LazR</span> underestimates laziness, which also adds to the unsoundness of signatures.</p>
+                        <p>To investigate whether this unsound approach to strictness is viable, I conducted an experiment to synthesize and validate strictness signatures for R packages. I obtained 500 most widely used packages (corpus) in the R ecosystem and, using <span>LazR</span>, leveraged their regression tests to infer strictness signatures. <span>LazR</span> synthesized signatures for 51.5K top-level functions with 204K parameter positions from these packages. Overall, 27.1% of the parameters were marked lazy, and a majority, 72.9% of parameters, were marked strict. Then, I assessed the robustness of strictness signatures using the client packages of the corpus for which strictness signatures were generated. These client packages import the corpus packages and call their functions. From the 13,308 clients of the corpus, I selected 2000 packages for this experiment. From these packages, I extracted 51.5 K runnable programs and executed them twice to filter 45.1K deterministic programs – programs with the same output on both runs, which I then executed by applying strictness signatures using <span>StrictR</span>. I then compared the output of this strict run with the lazy run; a difference in outputs was attributed to the modified semantics. I observed that 3,139 scripts produced erroneous output. I narrowed down the cause of these errors to a handful of packages: <a href="https://cran.r-project.org/web/packages/R.oo/index.html">R.oo</a>, <a href="https://cran.r-project.org/web/packages/R.utils/index.html">R.utils</a>, <a href="https://rlang.r-lib.org/">rlang</a>, <a href="https://vctrs.r-lib.org/">vctrs</a>, <a href="https://ggplot2.tidyverse.org/">ggplot2</a>, <a href="https://cran.r-project.org/web/packages/Matrix/index.html">Matrix</a>, and <a href="https://cran.r-project.org/web/packages/spam/index.html">spam</a>. Making these packages lazy decreased the number of failures to 358, a meager 0.79% of all the scripts with deterministic output. The differences in output originated from many sources, such as errors in native code or different startup messages printed by some packages. This experiment shows that it is possible to automatically infer strictness signature for legacy R code with reasonable accuracy for migration to the strict semantics.</p>
+                        <h3 id="related-work-4">Related Work</h3>
+                        <p><span class="citation" data-cites="oopsla20b">Turcotte et al. (2020)</span> empirically inferred <span>type</span> signatures for functions by observing the type of arguments and return values. These signatures were validated by inserting type checking code and monitoring failures on client programs. This approach inspired the strictness inference; however, types are easier to check than strictness. Types are checked by validating that if an argument is evaluated, it has the expected type. For strictness, I have to worry about the interplay of side-effects and changes to the order of evaluation of arguments.</p>
+                        <h1 id="proposed-work">Proposed Work</h1>
+                        <p>This chapter will discuss the incomplete parts of my migration strategy and my plan to address them. I plan to submit this work to PLDI’23.</p>
+                        <h2 id="automating-migration">Automating Migration</h2>
+                        <p>Section <a href="#siginf" data-reference-type="ref" data-reference="siginf">3.4</a> discussed the tools published in <span class="citation" data-cites="promisebreaker">Goel, Ječmen, et al. (2021)</span> to migrate the R ecosystem to strict semantics. While the signature inference has good accuracy for use in the real world, they are not “production-ready” yet. I intend to make the following improvements to the migration tooling to address the third step of my migration strategy thoroughly.</p>
+                        <h5 id="refactoring">Refactoring</h5>
+                        <p><span>LazR</span> outputs partially processed data in data files processed by external scripts to synthesize strictness signatures. It also keeps track of extraneous program state, which is irrelevant for generating signatures. I intend to refactor <span>LazR</span> to address these issues.</p>
+                        <h5 id="packaging">Packaging</h5>
+                        <p><span>LazR</span> is designed as an R package that extends my generic dynamic analysis framework, <span>instrumentr</span>, which builds on top of a modified GNU R VM, <span>R-dyntrace</span>. To ease distribution and setup, I want to package this with Docker and integrate it with continuous-integration services such as <a href="https://github.com/features/actions">Github Actions</a>.</p>
+                        <h5 id="unsoundness">Unsoundness</h5>
+                        <p>To address <span>LazR</span>’s unsoundness, I would like to include a mechanism for manually overriding the strictness signatures. I will leverage <a href="https://roxygen2.r-lib.org/">roxygen2</a> to enable developers to specify strictness information as specially formatted comments placed next to the corresponding function, as shown in the example below.</p>
+                        <pre><code>#&#39; This function wraps base::if
+                        #&#39; @strict cond
+                        my_if &lt;- function(cond, yes, no) {
+                            if(cond) yes else no
+                        }</code></pre>
+                        <h5 id="syntax">Syntax</h5>
+                        <p>Strictness signatures placed in external files can diverge from code over time. As shown below, I want to introduce an annotation mechanism to enable developers to specify strictness information as part of function declaration syntax.<br />
+                        </p>
+                        <pre><code>my_if &lt;- function(cond: strict, yes, no) {
+                            if(cond) yes else no
+                        }</code></pre>
+                        <p>To accomplish this, I am developing a tool, <span>rastr</span>, that will preprocess this enhanced R code to produce regular R code and move the strictness annotations to the package’s signature file. This approach is similar to TypeScript, but unlike TypeScript, the annotations may change the semantics of the code. More generally, <span>rastr</span> will support arbitrary annotations to code to enable other use-cases such as the addition of type signatures and C++-style class declaration syntax for R’s object systems.</p>
+                        <h2 id="migrating-popular-r-packages">Migrating Popular R Packages</h2>
+                        <p>The next piece of proposed work aims to address the third step of the migration strategy. While I have identified two incentives, predictability <span class="citation" data-cites="promisestudy">(Goel and Vitek 2019)</span> and performance <span class="citation" data-cites="promisebreaker">(Goel, Ječmen, et al. 2021)</span>, to encourage developers to migrate to strict semantics, I have not yet migrated the popular packages of the R package ecosystem. For this, I intend to focus on <a href="https://www.tidyverse.org/">tidyverse</a>, an extremely popular collection of 29 R packages used for data science. I have discussed this prospect with the developers of <span>tidyverse</span>, an influential group of R package authors; they support my vision for R and are interested in using my tool to migrate the <span>tidyverse</span> packages. On account of being widely used, these packages are the most common dependencies in the ecosystem. Hence, the R ecosystem’s <em>effective</em> migration rests mainly on the successful migration of <span>tidyverse</span> packages. Furthermore, on account of being well-tested, these packages will likely help identify bugs in the automated migration. Focusing only on the 29 <span>tidyverse</span> packages will allow me to investigate the cases where automated migration fails and derive heuristics and guidelines for debugging and fixing them. This should lead to a better understanding of the impact of unsoundness on migration and improvements in the design of the tool.</p>
+                        <h1 id="conclusions">Conclusions</h1>
+                        <p>This thesis presents a strategy for migrating the R ecosystem at scale from lazy to strict semantics. The strategy builds on three questions:</p>
+                        <dl>
+                        <dt>Q1 How will the ecosystem be impacted?</dt>
+                        <dd><p><br />
+                        Through a large-scale analysis of the use of laziness in <span class="citation" data-cites="promisestudy">Goel and Vitek (2019)</span>, I discovered that much of R code does not rely upon laziness, with meta-programming being the only significant use of laziness in R packages. In fact, due to unrestricted side-effects, R programmers enforce argument strictness at function boundary to regain a predictable argument evaluation order. With the exception of meta-programming, the R ecosystem will benefit from the removal of laziness.</p>
+                        </dd>
+                        <dt>Q2 How to migrate the ecosystem at scale?</dt>
+                        <dd><p><br />
+                        I developed tools to migrate R packages to strict semantics in <span class="citation" data-cites="promisebreaker">Goel, Ječmen, et al. (2021)</span> with good accuracy. <span>LazR</span> generates strictness signatures in external files, requiring no modifications to package code, which are read off at runtime by <span>StrictR</span> to evaluate arguments at the function boundary. Polishing these tools to prepare them for use by end-users is future work.</p>
+                        </dd>
+                        <dt>Q3 How to encourage adoption?</dt>
+                        <dd><p><br />
+                        I have identified two clear incentives for the developers to consider migration to strict semantics: predictable argument evaluation <span class="citation" data-cites="promisestudy">(Goel and Vitek 2019)</span> and performance improvement <span class="citation" data-cites="promisebreaker">(Goel, Ječmen, et al. 2021)</span>. Migrating popular R packages from <span>tidyverse</span> is future work.</p>
+                        </dd>
+                        </dl>
+                        <h2 id="schedule">Schedule</h2>
+                        <p>I intend to finish the proposed future work by October and submit it to PLDI’23. After that, I will focus on the thesis, which I expect to be completed by the end of January 2023.</p>
+                        <div class="center">
+                        <table>
+                        <thead>
+                        <tr class="header">
+                        <th style="text-align: left;"><strong>Month</strong></th>
+                        <th style="text-align: left;"><strong>Task</strong></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="odd">
+                        <td style="text-align: left;">June-October</td>
+                        <td style="text-align: left;">Migration</td>
+                        </tr>
+                        <tr class="even">
+                        <td style="text-align: left;">November</td>
+                        <td style="text-align: left;">Paper</td>
+                        </tr>
+                        <tr class="odd">
+                        <td style="text-align: left;">December-January</td>
+                        <td style="text-align: left;">Thesis</td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                        <p>[Bibliography]</p>
+                        <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+                        <div id="ref-Agg15" class="csl-entry" role="doc-biblioentry">
+                        Aggarwal, Karan, Mohammad Salameh, and A. Hindle. 2015. <span>“Using Machine Translation for Converting <span>Python</span> 2 to <span>Python</span> 3 Code.”</span> <em>PeerJ Prepr.</em> 3. <a href="https://doi.org/10.7287/PEERJ.PREPRINTS.1459V1">https://doi.org/10.7287/PEERJ.PREPRINTS.1459V1</a>.
+                        </div>
+                        <div id="ref-augustsson93" class="csl-entry" role="doc-biblioentry">
+                        Augustsson, Lennart. 1993. <span>“The Interactive Lazy <span>ML</span> System.”</span> <em>Journal of Functional Programming</em> 3 (1). <a href="https://doi.org/10.1017/S0956796800000617">https://doi.org/10.1017/S0956796800000617</a>.
+                        </div>
+                        <div id="ref-backus" class="csl-entry" role="doc-biblioentry">
+                        Backus, J. W., F. L. Bauer, J.Green, C. Katz, J. McCarthy, P. Naur, A. J. Perlis, et al. 1963. <span>“Revised Report on the Algorithm Language ALGOL 60.”</span> <em>Communications of the ACM</em> 6 (1). <a href="https://doi.org/10.1145/366193.366201">https://doi.org/10.1145/366193.366201</a>.
+                        </div>
+                        <div id="ref-s88" class="csl-entry" role="doc-biblioentry">
+                        Becker, Richard A., John M. Chambers, and Allan R. Wilks. 1988. <em>The New <span>S</span> Language</em>. Chapman &amp; Hall.
+                        </div>
+                        <div id="ref-trouduq" class="csl-entry" role="doc-biblioentry">
+                        Bodin, Martin, Tomás Diaz, and Éric Tanter. 2018. <span>“A Trustworthy Mechanized Formalization of <span>R</span>.”</span> In <em>International Symposium on Dynamic Languages (DLS)</em>. <a href="https://doi.org/10.1145/3276945.3276946">https://doi.org/10.1145/3276945.3276946</a>.
+                        </div>
+                        <div id="ref-OB20" class="csl-entry" role="doc-biblioentry">
+                        Collie, B., P. Ginsbach, J. Woodruff, A. Rajan, and M. F. P. O’Boyle. 2020. <span>“M3: Semantic API Migrations.”</span> In <em>Conference on Automated Software Engineering (ASE)</em>. <a href="https://doi.org/10.1145/3324884.3416618">https://doi.org/10.1145/3324884.3416618</a>.
+                        </div>
+                        <div id="ref-Orso20" class="csl-entry" role="doc-biblioentry">
+                        Fazzini, Mattia, Qi Xin, and Alessandro Orso. 2020. <span>“<span>APIMigrator</span>: An <span>API</span>-Usage Migration Tool for <span>Android</span> Apps.”</span> In <em>International Conference on Mobile Software Engineering and Systems (MobileSoft)</em>. <a href="https://doi.org/10.1145/3387905.3388608">https://doi.org/10.1145/3387905.3388608</a>.
+                        </div>
+                        <div id="ref-oopsla21b" class="csl-entry" role="doc-biblioentry">
+                        Goel, Aviral, Pierre Donat-Bouillud, Filip Křikava Christoph M. Kirsch, and Jan Vitek. 2021. <span>“What We Eval in the Shadows: A Large-Scale Study of Eval in r Programs.”</span> <em>Proceedings of the ACM on Programming Languages (PACMPL)</em> 5 (Conference on Object-Oriented Programming Systems, Languages and Applications (OOPSLA)). <a href="https://doi.org/10.1145/3485502">https://doi.org/10.1145/3485502</a>.
+                        </div>
+                        <div id="ref-promisebreaker" class="csl-entry" role="doc-biblioentry">
+                        Goel, Aviral, Jan Ječmen, Sebastián Krynski, Olivier Flückiger, and Jan Vitek. 2021. <span>“Promises Are Made to Be Broken: Migrating r to Strict Semantics.”</span> <em>PACMPL</em> 5 (Conference on Object-Oriented Programming Systems, Languages and Applications (OOPSLA)). <a href="https://doi.org/10.1145/3485478">https://doi.org/10.1145/3485478</a>.
+                        </div>
+                        <div id="ref-promisestudy" class="csl-entry" role="doc-biblioentry">
+                        Goel, Aviral, and Jan Vitek. 2019. <span>“On the Design, Implementation, and Use of Laziness in r.”</span> <em>PACMPL</em> 3 (Conference on Object-Oriented Programming Systems, Languages and Applications (OOPSLA)). <a href="https://doi.org/10.1145/3360579">https://doi.org/10.1145/3360579</a>.
+                        </div>
+                        <div id="ref-dls21" class="csl-entry" role="doc-biblioentry">
+                        ———. 2021. <span>“First-Class Environments in r.”</span> In <em>International Symposium on Dynamic Languages (DLS)</em>. <a href="https://doi.org/10.1145/3486602.3486768">https://doi.org/10.1145/3486602.3486768</a>.
+                        </div>
+                        <div id="ref-harris2020Array" class="csl-entry" role="doc-biblioentry">
+                        Harris, Charles R., K. Jarrod Millman, Stéfan J. van der Walt, Ralf Gommers, Pauli Virtanen, David Cournapeau, Eric Wieser, et al. 2020. <span>“Array Programming with <span>NumPy</span>.”</span> <em>Nature</em> 585. <a href="https://doi.org/10.1038/s41586-020-2649-2">https://doi.org/10.1038/s41586-020-2649-2</a>.
+                        </div>
+                        <div id="ref-bioc" class="csl-entry" role="doc-biblioentry">
+                        Huber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. <span>“<span>O</span>rchestrating High-Throughput Genomic Analysis with <span>B</span>ioconductor.”</span> <em>Nature Methods</em> 12 (2): 115–21. <a href="http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html">http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html</a>.
+                        </div>
+                        <div id="ref-haskell" class="csl-entry" role="doc-biblioentry">
+                        Hudak, Paul, John Hughes, Simon L. Peyton Jones, and Philip Wadler. 2007. <span>“A History of Haskell: Being Lazy with Class.”</span> In <em>History of Programming Languages Conference (HOPL-III)</em>. <a href="https://doi.org/10.1145/1238844.1238856">https://doi.org/10.1145/1238844.1238856</a>.
+                        </div>
+                        <div id="ref-hughes" class="csl-entry" role="doc-biblioentry">
+                        Hughes, John. 1989. <span>“Why Functional Programming Matters.”</span> <em>The Computer Journal</em> 32 (2). <a href="https://doi.org/10.1093/comjnl/32.2.98">https://doi.org/10.1093/comjnl/32.2.98</a>.
+                        </div>
+                        <div id="ref-r96" class="csl-entry" role="doc-biblioentry">
+                        Ihaka, Ross, and Robert Gentleman. 1996. <span>“R: A Language for Data Analysis and Graphics.”</span> <em>Journal of Computational and Graphical Statistics</em> 5 (3). <a href="http://www.amstat.org/publications/jcgs/">http://www.amstat.org/publications/jcgs/</a>.
+                        </div>
+                        <div id="ref-ligges2017" class="csl-entry" role="doc-biblioentry">
+                        Ligges, Uwe. 2017. <span>“20 Years of CRAN (Video on Channel9).”</span> In <em>UseR! Conference</em>.
+                        </div>
+                        <div id="ref-ecoop12" class="csl-entry" role="doc-biblioentry">
+                        Morandat, Floréal, Brandon Hill, Leo Osvald, and Jan Vitek. 2012. <span>“Evaluating the Design of the r Language: Objects and Functions for Data Analysis.”</span> In <em>European Conference on Object-Oriented Programming (ECOOP)</em>. <a href="https://doi.org/10.1007/978-3-642-31057-7_6">https://doi.org/10.1007/978-3-642-31057-7_6</a>.
+                        </div>
+                        <div id="ref-craftinterp" class="csl-entry" role="doc-biblioentry">
+                        Nystrom, Robert. 2021. <em>Crafting Interpreters</em>. Genever Benning. <a href="https://craftinginterpreters.com/">https://craftinginterpreters.com/</a>.
+                        </div>
+                        <div id="ref-pitman80" class="csl-entry" role="doc-biblioentry">
+                        Pitman, Kent M. 1980. <span>“Special Forms in <span>LISP</span>.”</span> In <em><span>LISP</span> Conference</em>. <a href="https://doi.org/10.1145/800087.802804">https://doi.org/10.1145/800087.802804</a>.
+                        </div>
+                        <div id="ref-Pra20" class="csl-entry" role="doc-biblioentry">
+                        Pradel, Michael, Georgios Gousios, Jason Liu, and Satish Chandra. 2020. <span>“TypeWriter: Neural Type Prediction with Search-Based Validation.”</span> In <em>Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESE/FSE)</em>. <a href="https://doi.org/10.1145/3368089.3409715">https://doi.org/10.1145/3368089.3409715</a>.
+                        </div>
+                        <div id="ref-matthias06" class="csl-entry" role="doc-biblioentry">
+                        Tobin-Hochstadt, Sam, and Matthias Felleisen. 2006. <span>“Interlanguage Migration: From Scripts to Programs.”</span> In <em>Companion to the Symposium on Object-Oriented Programming Systems, Languages, and Applications</em>. <a href="https://doi.org/10.1145/1176617.1176755">https://doi.org/10.1145/1176617.1176755</a>.
+                        </div>
+                        <div id="ref-oopsla20b" class="csl-entry" role="doc-biblioentry">
+                        Turcotte, Alexi, Aviral Goel, Filip Křikava, and Jan Vitek. 2020. <span>“Designing Types for r, Empirically.”</span> <em>Proceedings of the ACM on Programming Languages (PACMPL)</em> 4 (Conference on Object-Oriented Programming Systems, Languages and Applications (OOPSLA)). <a href="https://doi.org/10.1145/3428249">https://doi.org/10.1145/3428249</a>.
+                        </div>
+                        <div id="ref-turner79" class="csl-entry" role="doc-biblioentry">
+                        Turner, David A. 1979. <span>“A New Implementation Technique for Applicative Languages.”</span> <em>Software: Practice and Experience</em> 9 (1). <a href="https://doi.org/10.1002/spe.4380090105">https://doi.org/10.1002/spe.4380090105</a>.
+                        </div>
+                        <div id="ref-turner85" class="csl-entry" role="doc-biblioentry">
+                        ———. 1985. <span>“Miranda: <span>A</span> Non-Strict Functional Language with Polymorphic Types.”</span> In <em>Functional Programming Languages and Computer Architecture (FPCA)</em>. <a href="https://doi.org/10.1007/3-540-15975-4\_26">https://doi.org/10.1007/3-540-15975-4\_26</a>.
+                        </div>
+                        <div id="ref-mitch" class="csl-entry" role="doc-biblioentry">
+                        Wand, Mitchell. 1998. <span>“The Theory of Fexprs Is Trivial.”</span> <em>Lisp and Symbolic Computation</em> 10 (3). <a href="https://doi.org/10.1023/A:100772063">https://doi.org/10.1023/A:100772063</a>.
+                        </div>
+                        <div id="ref-tgog" class="csl-entry" role="doc-biblioentry">
+                        Wilkinson, Leland. 2005. <em>The Grammar of Graphics (Statistics and Computing)</em>. Berlin, Heidelberg: Springer-Verlag.
+                        </div>
+                        <div id="ref-wright92" class="csl-entry" role="doc-biblioentry">
+                        Wright, Andrew K., and Matthias Felleisen. 1992. <span>“A Syntactic Approach to Type Soundness.”</span> <em>Information and Computation</em> 115. <a href="https://doi.org/10.1006/inco.1994.1093">https://doi.org/10.1006/inco.1994.1093</a>.
+                        </div>
+                        <div id="ref-Xu19" class="csl-entry" role="doc-biblioentry">
+                        Xu, S., Z. Dong, and N. Meng. 2019. <span>“Meditor: Inference and Application of API Migration Edits.”</span> In <em>International Conference on Program Comprehension (ICPC)</em>. <a href="https://doi.org/10.1109/ICPC.2019.00052">https://doi.org/10.1109/ICPC.2019.00052</a>.
+                        </div>
+                        </div>
+                        <section class="footnotes" role="doc-endnotes">
+                        <hr />
+                        <ol>
+                        <li id="fn1" role="doc-endnote"><p>Sunsetting Python 2: <a href="https://www.python.org/doc/sunset-python-2/">https://www.python.org/doc/sunset-python-2/</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                        <li id="fn2" role="doc-endnote"><p>Miscellaneous Python 3.0 Plans: <a href="https://www.python.org/dev/peps/pep-3100/">https://www.python.org/dev/peps/pep-3100/</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                        <li id="fn3" role="doc-endnote"><p>Python 3 Statement: <a href="https://python3statement.org/">https://python3statement.org/</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                        </ol>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+                <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/proposal.js"></script>
+        <script src="js/anchorjs.min.js"></script>
+        <script src="js/bootstrap-5.1.3-beta.bundle.min.js"></script>
+
+        <script>
+         anchors.options = {
+             placement: 'right',
+         };
+         anchors.add('h1:not(.no-anchor)').add('h2:not(.no-anchor)').add('h3').add('h4').add('h5').add('h6');
+
+         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+         const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+        </script>
+        <script src="js/highlightjs-11.5.1.min.js"></script>
+        <!-- and it's easy to individually load additional languages -->
+        <script src="js/highlightjs-r-11.5.1.min.js"></script>
+    </body>
+</html>

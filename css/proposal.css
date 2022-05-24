@@ -1,0 +1,101 @@
+body {
+    font-family: 'Cardo', serif;
+}
+
+#signature {
+    font-family: 'Tangerine', cursive;
+    color: black;
+}
+
+#title {
+    font-family: 'Cardo', serif;
+    /*font-family: 'Raleway', sans-serif;*/
+}
+
+#subtitle {
+    font-family: 'Cardo', serif;
+}
+
+.titlepage-divider {
+    height: 1rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 0.5em 1.5em rgb(0 0 0 / 10%), inset 0 0.125em 0.5em rgb(0 0 0 / 15%);
+}
+
+.titlepage {
+    display: none;
+}
+
+a {
+    color: #930000;
+    text-decoration: none;
+}
+
+.drop-cap:first-letter {
+    margin: auto 0.1em auto auto;
+}
+.drop-cap:first-letter {
+    float: left;
+    margin: auto 0.25em auto auto;
+    padding: inherit;
+    font-size: 4em;
+    font-family: inherit;
+    line-height: 1;
+    text-indent: 0;
+    background: transparent;
+    color: inherit;
+}
+
+
+#toc li {
+    border-left: solid rgba(255, 255, 255, 0) 3px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+#toc li:hover {
+    border-left: solid #930000 3px;
+    background-color: #f8f9fa;
+}
+
+#toc a:hover {
+    color: #930000;
+}
+
+#toc ul {
+    list-style-type: none; /* Remove bullets */
+}
+
+.chapter {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: solid black 0.25rem;
+    border-top: solid black 0.25rem;
+}
+
+.section {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.25rem;
+    border-bottom: solid black 0.15rem;
+}
+
+cite {
+    font-style: normal;
+    padding: 0px !important;
+}
+
+pre {
+    border: solid black;
+}
+
+.card-body > p {
+    margin-bottom: 0rem;
+}
+
